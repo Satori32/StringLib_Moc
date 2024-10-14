@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <string.h>
 
@@ -46,7 +48,11 @@ Vector<UTF8_Char>& GetVector(UTF_8& In) {
 }
 
 bool Clear(UTF_8& In) {
-	Clear(In.V);
+	return Clear(In.V);
+}
+
+size_t Length(UTF_8& In) {
+	return Size(In.V);
 }
 
 bool From(UTF_8& In, const char* S, size_t L) {
@@ -133,5 +139,13 @@ int main() {
 	size_t L = Length(S);
 
 	Add(S, (char*)"Œá”y‚Í”L‚Å‚ ‚é", strlen("Œá”y‚Í”L‚Å‚ ‚é"));
+	UTF_8 U = From(S);
+	
+	for (size_t i = 0; i < Length(U); i++) {	
+		printf(%s, Index(U.V, i)->CHAR);
+	}
+
+	return 0;
+	
 
 }
