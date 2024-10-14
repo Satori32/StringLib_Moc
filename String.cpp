@@ -1,44 +1,20 @@
-#define _CRT_SECURE_NO_WARNINGS
+#include "String.h"
 
-#include <iostream>
 
-#include <stdio.h>
-#include <string.h>
+bool Set(UTF8_Char& In, char a, char b, char c) {
+	In.A = a;
+	In.B = b;
+	In.C = c;
+	return true;
+}
+bool Clear(UTF8_Char& In) {
+	In.A = 0;
+	In.B = 0;
+	In.C = 0;
+	In.null = 0;
+	return true;
+}
 
-#include "MemoryAllocator.h"
-#include "Vector.h"
-struct UTF8_Char
-{
-
-	union {
-		struct
-		{
-			char A;
-			char B;
-			char C;
-			char null;
-
-		};
-		char CHAR[4] = { 0, };
-	};
-
-};
-	bool Set(UTF8_Char& In, char a, char b, char c) {
-		In.A = a;
-		In.B = b;
-		In.C = c;
-		return true;
-	}
-	bool Clear(UTF8_Char& In) {
-		In.A = 0;
-		In.B = 0;
-		In.C = 0;
-		In.null = 0;
-		return true;
-	}
-struct  UTF_8 {
-	Vector<UTF8_Char> V;
-};
 
 bool Push(UTF_8& In, UTF8_Char& U) {
 	Push(In.V, U);
@@ -77,19 +53,12 @@ bool From(UTF_8& In, const char* S, size_t L) {
 			i++;
 			C = S[i];
 		}
-		Set(UC,A, B, C);
+		Set(UC, A, B, C);
 		A = 0;
 		B = 0;
 		C = 0;
 		Push(In, UC);
 	}
-	return true;
-}
-bool Add(UTF_8& In, UTF_8& D) {
-	for (size_t i = 0; i < Size(D); i++) {
-		Push(In.V, Index(D, i));
-	}
-
 	return true;
 }
 String MakeSingle(UTF_8& In) {
@@ -111,13 +80,10 @@ bool Free(UTF_8& In) {
 	return true;
 }
 
-struct String {
-	Memory<char> M;
-};
 
 String ConstructString(char* Text, size_t L) {
 	String S;
-	S.M = ConstructMemroy<char>(L+1);
+	S.M = ConstructMemroy<char>(L + 1);
 
 	strcpy(S.M.M, Text);
 
@@ -131,14 +97,14 @@ size_t Length(String& In) {
 	return strnlen(In.M.M, In.M.L);
 }
 
-char* Index(String& In,size_t P){
+char* Index(String& In, size_t P) {
 	return Index(In.M, P);
 }
 char* GetPTR(String& In) {
 	return In.M.M;
 }
 
-bool Add(String& S,char* Text, size_t L) {
+bool Add(String& S, char* Text, size_t L) {
 	if (ReAllocateMemory(S.M, Length(S) + L) == false) { return false; }
 	strcat(GetPTR(S), Text);
 	return true;
@@ -149,23 +115,4 @@ UTF_8 From(String& In) {
 	From(U, GetPTR(In), Length(In));
 
 	return U;
-}
-
-
-
-int main() {
-	String S = ConstructString((char*)"Test", 4);
-	size_t L = Length(S);
-
-	Add(S, (char*)"Œá”y‚Í”L‚Å‚ ‚é", strlen("Œá”y‚Í”L‚Å‚ ‚é"));
-	UTF_8 U = From(S);
-	
-	for (size_t i = 0; i < Length(U); i++) {	
-		printf(%s, Index(U.V, i)->CHAR);
-		std::cout << Index(U.V, i)->CHAR << std::endl;
-	}
-
-	return 0;
-	
-
 }
