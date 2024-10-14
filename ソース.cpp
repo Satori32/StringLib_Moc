@@ -85,6 +85,16 @@ bool From(UTF_8& In, const char* S, size_t L) {
 	}
 	return true;
 }
+String MakeSingle(UTF_8& In) {
+	String S = ConstructString("", 0);
+
+	for (size_t i = 0; i < Length(In); i++) {
+		Add(S, Index(In.V, i)->CHAR, strlen(Index(In.V, i)->CHAR));
+	}
+
+	return S;
+
+}
 UTF8_Char* Index(UTF_8& In, size_t P) {
 	return Index(In.V, P);
 }
