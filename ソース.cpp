@@ -1,5 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <iostream>
+
 #include <stdio.h>
 #include <string.h>
 
@@ -143,6 +145,7 @@ int main() {
 	
 	for (size_t i = 0; i < Length(U); i++) {	
 		printf(%s, Index(U.V, i)->CHAR);
+		std::cout << Index(U.V, i)->CHAR << std::endl;
 	}
 
 	return 0;
