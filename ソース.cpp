@@ -1,3 +1,4 @@
+/** /
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -150,8 +151,9 @@ UTF_8 From(String& In) {
 
 	return U;
 }
+/**/
 
-
+#include "String.h"
 
 int main() {
 	String S = ConstructString((char*)"Test", 4);

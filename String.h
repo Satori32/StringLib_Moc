@@ -48,7 +48,7 @@ bool Free(String& In);
 size_t Length(String& In);
 char* GetPTR(String& In);
 bool Add(String& S, char* Text, size_t L);
-UTF_8 From(String& In);
+UTF_8 ToUTF8(String& In);
 bool Add(UTF_8& In, UTF_8& D);
 
 

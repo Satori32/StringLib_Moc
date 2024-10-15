@@ -109,7 +109,7 @@ bool Add(String& S, char* Text, size_t L) {
 	strcat(GetPTR(S), Text);
 	return true;
 }
-UTF_8 From(String& In) {
+UTF_8 ToUTF8(String& In) {
 	UTF_8 U;
 
 	From(U, GetPTR(In), Length(In));
